@@ -21,14 +21,14 @@ Expression ExpressionBuilder::BuildExpression(const TokenList& tokenList)
 
 	for (auto token : tokenList)
 	{
-		// ¿¬»êÀÚ
+		// ì—°ì‚°ì
 		auto it = m_ExprRuleMap.find(token);
 		if (it != m_ExprRuleMap.end())
 		{
 			auto& rule = it->second;
 
-			// ±âÁ¸º¸´Ù ¿ì¼±¼øÀ§ ³·Àº ¿¬»êÀÚ
-			// ÀÚ½Åº¸´Ù ³ô°Å³ª °°Àº ¿¬»êÀÚ¸¦ ¸¸³¯ ¶§±îÁö »Ì±â
+			// ê¸°ì¡´ë³´ë‹¤ ìš°ì„ ìˆœìœ„ ë‚®ì€ ì—°ì‚°ì
+			// ìì‹ ë³´ë‹¤ ë†’ê±°ë‚˜ ê°™ì€ ì—°ì‚°ìë¥¼ ë§Œë‚  ë•Œê¹Œì§€ ë½‘ê¸°
 			while (!operatorStack.empty()
 				&& operatorStack.top().priority > rule.priority)
 			{
@@ -36,23 +36,23 @@ Expression ExpressionBuilder::BuildExpression(const TokenList& tokenList)
 				operatorStack.pop();
 			}
 
-			// ±âÁ¸º¸´Ù ¿ì¼±¼øÀ§ ³ôÀº ¿¬»êÀÚ´Â ±×³É ³ÖÀ½
-			// ±âÁ¸º¸´Ù ¿ì¼±¼øÀ§ °°Àº ¿¬»êÀÚ´Â
+			// ê¸°ì¡´ë³´ë‹¤ ìš°ì„ ìˆœìœ„ ë†’ì€ ì—°ì‚°ìëŠ” ê·¸ëƒ¥ ë„£ìŒ
+			// ê¸°ì¡´ë³´ë‹¤ ìš°ì„ ìˆœìœ„ ê°™ì€ ì—°ì‚°ìëŠ”
 			if (!operatorStack.empty()
 				&& operatorStack.top().priority == rule.priority)
 			{
-				// ¿ì°áÇÕÀÌ¸é »Ì°í ³Ö±â
+				// ìš°ê²°í•©ì´ë©´ ë½‘ê³  ë„£ê¸°
 				if (rule.direction == ExpressionRule::RIGHT)
 				{
 					expr.Push(ExpressionItem::MakeOperatorItem(operatorStack.top().function));
 					operatorStack.pop();
 				}
-				// ÁÂ°áÇÕÀÌ¸é ±×³É ³Ö±â
+				// ì¢Œê²°í•©ì´ë©´ ê·¸ëƒ¥ ë„£ê¸°
 			}
 
 			operatorStack.push(rule);
 		}
-		// ¼ıÀÚ
+		// ìˆ«ì
 		else
 		{
 			expr.Push(ExpressionItem::MakeNumberItem(token));

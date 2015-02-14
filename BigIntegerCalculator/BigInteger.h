@@ -37,7 +37,7 @@ private:
 	void ShiftRight();
 
 private:
-	// index 0: 1ÀÇ ÀÚ¸®, index 1: 10ÀÇ ÀÚ¸® ...
+	// index 0: 1ì˜ ìë¦¬, index 1: 10ì˜ ìë¦¬ ...
 	std::string m_Data;
 	bool m_Negative;
 };
